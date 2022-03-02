@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BlogPostsController!{% endblock %}
+{% block title %}Renga Blogs{% endblock %}
 
 {% block body %}
+    <h1 class="heading">Welcome to the Renga Blog </h1>
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .content{
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+        padding: 16px 20px;
+    }
+    .heading{
+        text-align: center;
+        font-family: "Roboto Light", sans-serif;
+    }
+    img{
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+        margin: 10px;
+    }
+    .content{
+        margin: 0 auto;
+        border: 1px solid silver;
+        width: 80%;
+        background: linear-gradient(45deg, silver, white);
+    }
 </style>
+{% for post in posts %}
+    <div class="content mt-5">
+        <article class="mb-5">
+            <h2>{{ post.Title }}</h2>
+            <div class="metadata">
+                created on {{ post.created_at | date('d-m-Y') }} at {{ post.created_at | date('H:i') }}
+                {% if post.User %}
+                By
+                <span class="badge bg-success">
+                    <strong>{{ post.User.Names }}</strong>
+                </span>
+                {% endif %}
+            </div>
+            <div class="posts">
+                <img src = "{{ post.imageUrl}}" alt="Post Image">
+                <p>{{ post.Content }}</p>
+                <a class="btn btn-info" href="{{ path('post_show',{'id' : post.id }) }}"> read more</a>
+            </div>
+        </article>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/dani/Documents/Projects/PHP-Projects/SymfonyBlog/src/Controller/BlogPostsController.php'|file_link(0) }}">src/Controller/BlogPostsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/dani/Documents/Projects/PHP-Projects/SymfonyBlog/templates/blog_posts/index.html.twig'|file_link(0) }}">templates/blog_posts/index.html.twig</a></code></li>
-    </ul>
-</div>
+    </div>
+   {% endfor %}
+    <div class="navigation mt-5">
+{#        {{ knp_pagination_render(posts) }}#}
+    </div>
 {% endblock %}

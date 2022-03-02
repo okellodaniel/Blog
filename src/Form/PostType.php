@@ -21,7 +21,6 @@ class PostType extends AbstractType
                 'label'=>'Add Content'
             ])
             ->add('ImageUrl')
-            ->add('User')
         ;
     }
 

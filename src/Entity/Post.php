@@ -190,4 +190,5 @@ class Post
 
         return $this;
     }
+
 }
