@@ -21,9 +21,8 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator:
-                - App\Security\AdminLoginAuthenticator
+#                - App\Security\AdminLoginAuthenticator
                 - App\Security\AuthorAuthenticator
-            entry_point: App\Security\AuthorAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout

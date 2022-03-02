@@ -14,9 +14,9 @@ class AuthorLoginController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('app_blog_posts');
-         }
+//         if ($this->getUser()) {
+//             return $this->redirectToRoute('app_blog_posts');
+//         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

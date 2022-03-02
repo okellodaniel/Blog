@@ -51,11 +51,6 @@ class Post
     private $created_at;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $Update_at;
-
-    /**
      * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="Posts", orphanRemoval=true)
      */
     private $Comments;

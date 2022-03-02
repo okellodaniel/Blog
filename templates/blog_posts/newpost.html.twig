@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig'%}
+{% block title %} New Blog Post {% endblock %}
 
-</body>
-</html>
+{% block body %}
+    <h1>Create a New Post</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">Post</button>
+    {{ form_end(form) }}
+{% endblock %}

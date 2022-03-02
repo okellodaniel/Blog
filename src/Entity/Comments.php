@@ -20,22 +20,29 @@ class Comments
 
     /**
      * @ORM\Column(type="string", length=99999, nullable=true)
+     * @Assert\NotBlank(
+     *     message="Please add your Comment"
+     *  )
      */
     private $Content;
 
     /**
      * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="Comments")
      * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $Posts;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(
-     *     message="Please add your Comment"
-     *  )
+     * @Assert\NotBlank
      */
     private $Author;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -86,6 +93,18 @@ class Comments
     public function setAuthor(string $Author): self
     {
         $this->Author = $Author;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

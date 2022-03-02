@@ -1,19 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="Eng">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-{#        {% block stylesheets %}#}
-{#            {{ encore_entry_link_tags('app') }}#}
-{#        {% endblock %}#}
-
-{#        {% block javascripts %}#}
-{#            {{ encore_entry_script_tags('app') }}#}
-{#        {% endblock %}#}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://bootswatch.com/5/litera/bootstrap.min.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+        {% endblock %}
     </head>
     <body>
+    <style>
+        html,body{
+            font-family: sans-serif;
+        }
+        .kk{
+            background: rebeccapurple;
+        }
+    </style>
+    <nav class="navbar navbar-lg navbar-dark kk">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ path('app_blog_posts')}}"> Renga Blog </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hello {{ app.user.Names }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('new_article') }}">Add Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
         {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="//code.jquery.com/jquery.js"></script>
+            <script src="assets/bootstrap.js"></script>
+        {% endblock %}
+        {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
     </body>
 </html>
