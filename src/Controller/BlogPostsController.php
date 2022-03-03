@@ -36,7 +36,11 @@ class BlogPostsController extends AbstractController
     {
         $posts = $paginator->paginate($postRepository->findAll(),
             $request->query->getInt('page',1), // Page Number
-            5 //Page Limit
+            5, //Page Limit,
+            [
+                'defaultSortFieldName'=> 'CreatedAt',
+                'defaultSortDirection'=>'desc'
+            ]
         );
 
         return $this->render('blog_posts/index.html.twig', [

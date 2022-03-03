@@ -216,4 +216,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * Prepare the User Entity for Admin Creation
+     * @return User
+     *
+     */
+
+    public static function createByAdmin():UserRepository{
+        $user = new Self;
+        $user->roles = [Roles::ROLE_USER, Roles::ROLE_CONTRIBUTOR];
+        return $user;
+    }
 }

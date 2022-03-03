@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <style>
+        a{
+            text-decoration: none;
+            color:white;
+            font-weight: bolder
+        }
+        .table{
+            margin:20px;
+        }
+    </style>
+    <h1 style="margin-top: 10px;">Renga Blog Users</h1>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Names</th>
+                <th scope="col">Email</th>
+                <th scope="col">Roles</th>
+                <th scope="col">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.Names }}</td>
+                <td>{{ user.Email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>
+                    <button class="btn btn-outline-info"><a href="{{ path('app_admin_user_show', {'id': user.id}) }}" style="color: black">View</a></button>
+                    <button class="btn btn-danger"><a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a></button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">There are no Users </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <button class="btn btn-success"><a href="{{ path('app_admin_user_new') }}">Create new</a></button>
+{% endblock %}
