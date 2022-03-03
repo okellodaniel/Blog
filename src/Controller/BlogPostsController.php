@@ -45,7 +45,7 @@ class BlogPostsController extends AbstractController
     }
 
     /**
-     *  @Route ("/posts/new", name="new_post")
+     *  @Route ("/post/new", name="new_post")
      */
 
     public function new(Request $request,EntityManagerInterface $entityManager):Response
@@ -72,11 +72,9 @@ class BlogPostsController extends AbstractController
     }
 
     /**
-     * @Route("/posts/{}/edit", name="post_edit")
+     * @Route("/post/{id}/edit", name="post_edit")
      */
-
-    public function edit(Request $request,Post $post,
-                         EntityManagerInterface $entityManager)
+    public function edit(Request $request,Post $post,EntityManagerInterface $entityManager):Response
     {
         $form = $this->createForm(PostType::class,$post);
         $form->handleRequest($request);
@@ -85,15 +83,13 @@ class BlogPostsController extends AbstractController
         {
             $entityManager->persist($post);
             $entityManager->flush();
-
-            return $this->redirectToRoute("blog_by_id", [
+            return $this->redirectToRoute("post_by_id", [
                 'id' => $post->getId()
             ]);
-
         }
 
         return $this->render('blog_posts/edit.html.twig',[
-            'edit-form' => $form->createView()
+            'editform' => $form->createView()
         ]);
     }
 

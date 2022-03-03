@@ -32,6 +32,7 @@
         <div class="meta-data">
             <strong>Created at</strong> {{ post.CreatedAt | date('d-m-y') }} <strong>At</strong> {{ post.CreatedAt | date('H:i') }}
             <span class="badge rounded-pill bg-success">{{ post.Comments | length }} comments</span>
+            <i><small>Authored By</small></i> <span class="badge rounded-pill bg-info"> {{ post.User.Names }}</span>
         </div>
         <div class="content">
             <img src="{{ post.ImageUrl }}" alt="">
@@ -40,7 +41,7 @@
     </div>
     {% if app.User %}
         {% if app.User == post.User %}
-            <a href="{{ path('post_by_id',{'id':post.id}) }}" class="btn btn-success mt-5 mb-5">Edit</a>
+            <a href="{{ path('post_edit',{'id':post.id}) }}" class="btn btn-success mt-5 mb-5">Edit</a>
         {% endif %}
     {% endif %}
 
