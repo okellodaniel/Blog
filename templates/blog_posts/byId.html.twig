@@ -12,6 +12,16 @@
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.25);
             margin: 10px;
+            width: 300px;
+        }
+        .content{
+            display: flex;
+            flex-direction: row;
+        }
+        .content p{
+            width:50%;
+            overflow: hidden;
+            padding: 20px;
         }
     </style>
 
@@ -20,7 +30,7 @@
             <h2>{{ post.Title }}</h2>
         </article>
         <div class="meta-data">
-            created at {{ post.CreatedAt | date('d-m-y') }} at {{ post.CreatedAt | date('H:i') }}
+            <strong>Created at</strong> {{ post.CreatedAt | date('d-m-y') }} <strong>At</strong> {{ post.CreatedAt | date('H:i') }}
             <span class="badge rounded-pill bg-success">{{ post.Comments | length }} comments</span>
         </div>
         <div class="content">

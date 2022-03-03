@@ -17,7 +17,7 @@
     img{
         border-radius: 10px;
         box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-        margin: 10px;
+        margin-top: 10px;
     }
     .content{
         margin: 0 auto;
@@ -25,15 +25,30 @@
         width: 80%;
         background: linear-gradient(45deg, silver, white);
     }
+    .posts{
+        display: flex;
+        align-content: flex-start;
+    }
+    .dm{
+        overflow: hidden;
+        padding:20px
+    }
+
+    .btn{
+        margin-top: 10px;
+    }
+    .badge{
+        padding:7px 13px;
+    }
 </style>
 {% for post in posts %}
     <section class="content mt-5">
         <article class="mb-5">
             <h2>{{ post.Title }}</h2>
             <div class="metadata">
-                created on {{ post.CreatedAt | date('d-m-Y') }} at {{ post.CreatedAt | date('H:i') }}
+                <strong>Created on</strong> {{ post.CreatedAt | date('d-m-Y') }} <strong>At</strong> {{ post.CreatedAt | date('H:i') }}
                 {% if post.User %}
-                By
+                <strong>By</strong>
                 <span class="badge bg-success">
                     <strong>{{ post.User.Names }}</strong>
                 </span>
@@ -41,9 +56,9 @@
             </div>
             <div class="posts">
                 <img src = "{{ post.ImageUrl}}" alt="Post Image">
-                <p>{{ post.Content }}</p>
-                <a class="btn btn-info" href="{{ path('post_by_id',{'id' : post.id }) }}"> read more</a>
+                <p class="dm">{{ post.Content }}</p>
             </div>
+            <a class="btn btn-info" href="{{ path('post_by_id',{'id' : post.id }) }}"> read more</a>
         </article>
 
     </section>
