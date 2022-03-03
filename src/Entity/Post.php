@@ -34,7 +34,7 @@ class Post
     /**
      * @ORM\Column(type="string", length=99999)
      * @Assert\Length(
-     *     min=50,
+     *     min=20,
      *     minMessage= " Your Content  must be atleast {{ limit }} characters"
      * )
      *        */
@@ -46,20 +46,20 @@ class Post
     private $ImageUrl;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="Posts", orphanRemoval=true)
-     */
-    private $Comments;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Posts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $User;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $CreatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="Post")
+     */
+    private $Comments;
 
 
     public function __construct()
@@ -108,18 +108,6 @@ class Post
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
     public function getUpdateAt(): ?\DateTimeImmutable
     {
         return $this->Update_at;
@@ -133,9 +121,9 @@ class Post
     }
 
     /**
-     * @return Collection<int, Comments>
+     * @return array|ArrayCollection
      */
-    public function getComments(): Collection
+    public function getComments()
     {
         return $this->Comments;
     }
@@ -186,4 +174,23 @@ class Post
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->CreatedAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $CreatedAt): self
+    {
+        $this->CreatedAt = $CreatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comments>
+     */
+    public function getComment(): Collection
+    {
+        return $this->Comment;
+    }
 }

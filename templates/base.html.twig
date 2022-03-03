@@ -5,54 +5,57 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://bootswatch.com/5/litera/bootstrap.min.css">
+{#            <link rel="stylesheet" href="https://bootswatch.com/5/litera/bootstrap.min.css">#}
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
         {% endblock %}
+        <style>
+            html,body{
+                font-family: sans-serif;
+            }
+
+            .kk{
+                background: rebeccapurple;
+            }
+        </style>
     </head>
     <body>
-    <style>
-        html,body{
-            font-family: sans-serif;
-        }
-        .kk{
-            background: rebeccapurple;
-        }
-    </style>
-    <nav class="navbar navbar-lg navbar-dark kk">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_blog_posts')}}"> Renga Blog </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-                    {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hello {{ app.user.Names }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('new_article') }}">Add Post</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-                        </li>
-                    {% endif %}
-                </ul>
+        <nav class="navbar navbar-lg navbar-dark kk">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('app_blog_posts')}}"> Renga Blog </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        {% if app.User %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Hello {{ app.User.Names }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('new_post') }}">Add Post</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
+        </nav>
+        <div class="container">
+            {% block body %}{% endblock %}
+            {% block javascripts %}
+                <script src="//code.jquery.com/jquery.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+            {% endblock %}
         </div>
-    </nav>
-        {% block body %}{% endblock %}
-        {% block javascripts %}
-            <script src="//code.jquery.com/jquery.js"></script>
-            <script src="assets/bootstrap.js"></script>
-        {% endblock %}
-        {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
     </body>
 </html>

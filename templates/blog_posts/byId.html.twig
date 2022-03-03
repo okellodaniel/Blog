@@ -20,41 +20,41 @@
             <h2>{{ post.Title }}</h2>
         </article>
         <div class="meta-data">
-            created at {{ post.created_at | date('d-m-y') }} at {{ post.created_at | date('H:i') }}
-            <span class="badge rounded-pill bg-success">{{ post.comments | length }} comments</span>
+            created at {{ post.CreatedAt | date('d-m-y') }} at {{ post.CreatedAt | date('H:i') }}
+            <span class="badge rounded-pill bg-success">{{ post.Comments | length }} comments</span>
         </div>
         <div class="content">
-            <img src="{{ post.imageUrl }}" alt="">
-            <p>{{ article.content }}</p>
+            <img src="{{ post.ImageUrl }}" alt="">
+            <p>{{ post.Content }}</p>
         </div>
     </div>
-    {% if app.user %}
-        {% if app.user == post.user %}
-            <a href="{{ path('post_edit',{'id':post.id}) }}" class="btn btn-success mt-5 mb-5">Edit</a>
+    {% if app.User %}
+        {% if app.User == post.User %}
+            <a href="{{ path('post_by_id',{'id':post.id}) }}" class="btn btn-success mt-5 mb-5">Edit</a>
         {% endif %}
     {% endif %}
 
     <hr>
     <div id="comments">
-        {% for comment in post.comments%}
+        {% for comment in post.Comments%}
         <div class="comment mt-2">
             <div class="row">
                 <div class="md-col-3" style="color:red">
-                    By {{ comment.author }} at <small>({{ comment.created_at | date('d-m-Y')}}  {{ comment.created_at  | date('H:i')}} )</small>
+                    By {{ comment.author }} at <small>({{ comment.CreatedAt | date('d-m-Y')}}  {{ comment.CreatedAt  | date('H:i')}} )</small>
                 </div>
-                <p>{{ comment.content }}</p>
+                <p>{{ comment.Content }}</p>
             </div>
         </div>
         {% endfor %}
     </div>
 
     <h1>Add Comment</h1>
-    {% if not app.user %}
+    {% if not app.User %}
     <a class="btn btn-info" href="{{ path('app_login') }}"> You have to Sign in to add Comment</a>
     {% else %}
         {{ form_start(comment_form) }}
         {{ form_widget(comment_form) }}
-        <button class="btn btn-success mb-5 mt-2">Success</button>
+        <button class="btn btn-success mb-5 mt-2">Comment</button>
         {{ form_end(comment_form) }}
     {% endif %}
 {% endblock %}

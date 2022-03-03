@@ -27,13 +27,6 @@ class Comments
     private $Content;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="Comments")
-     * @ORM\JoinColumn(nullable=false)
-     *
-     */
-    private $Posts;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
@@ -43,6 +36,12 @@ class Comments
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="Comments")
+     */
+    private $Post;
+
 
     public function getId(): ?int
     {
@@ -57,30 +56,6 @@ class Comments
     public function setContent(?string $Content): self
     {
         $this->Content = $Content;
-
-        return $this;
-    }
-
-    public function getPost(): ?string
-    {
-        return $this->Post;
-    }
-
-    public function setPost(string $Post): self
-    {
-        $this->Post = $Post;
-
-        return $this;
-    }
-
-    public function getPosts(): ?Post
-    {
-        return $this->Posts;
-    }
-
-    public function setPosts(?Post $Posts): self
-    {
-        $this->Posts = $Posts;
 
         return $this;
     }
@@ -108,4 +83,17 @@ class Comments
 
         return $this;
     }
+
+    public function getPost(): ?Post
+    {
+        return $this->Post;
+    }
+
+    public function setPost(?Post $Post): self
+    {
+        $this->Post = $Post;
+
+        return $this;
+    }
+
 }

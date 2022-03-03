@@ -17,9 +17,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class BlogPostsController extends AbstractController
 {
+    private Security $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;        
+    }
 
     /**
      * @Route("/", name="app_blog_posts")
@@ -29,7 +36,7 @@ class BlogPostsController extends AbstractController
     {
         $posts = $paginator->paginate($postRepository->findAll(),
             $request->query->getInt('page',1), // Page Number
-            7 //Page Limit
+            5 //Page Limit
         );
 
         return $this->render('blog_posts/index.html.twig', [
@@ -38,24 +45,23 @@ class BlogPostsController extends AbstractController
     }
 
     /**
-     *  @Route ("/posts/new", name="new_article")
+     *  @Route ("/posts/new", name="new_post")
      */
 
-    public function new(Request $request, FlashyNotifier $flashy, EntityManagerInterface $entityManager):Response
+    public function new(Request $request,EntityManagerInterface $entityManager):Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $post->setCreatedAt(new \DateTimeImmutable());
+            $post->setCreatedAt(new \DateTime());
             $post->setImageUrl("https://picsum.photos/200/300");
             $post->setUser($this->getUser());
             $entityManager->persist($post);
             $entityManager->flush();
-            $flashy->success("Post created");
 
-            return $this->redirectToRoute("blog_by_id",
+            return $this->redirectToRoute("post_by_id",
             ['id' => $post->getId()]
             );
         }
@@ -69,7 +75,7 @@ class BlogPostsController extends AbstractController
      * @Route("/posts/{}/edit", name="post_edit")
      */
 
-    public function edit(Request $request, FlashyNotifier $flashy,Post $post,
+    public function edit(Request $request,Post $post,
                          EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(PostType::class,$post);
@@ -79,7 +85,6 @@ class BlogPostsController extends AbstractController
         {
             $entityManager->persist($post);
             $entityManager->flush();
-            $flashy->success("Blog Post Updated");
 
             return $this->redirectToRoute("blog_by_id", [
                 'id' => $post->getId()
@@ -88,7 +93,7 @@ class BlogPostsController extends AbstractController
         }
 
         return $this->render('blog_posts/edit.html.twig',[
-            'editform' => $form->createView()
+            'edit-form' => $form->createView()
         ]);
     }
 
@@ -96,7 +101,7 @@ class BlogPostsController extends AbstractController
      * @Route("/post/{id}", name="post_by_id", methods={"GET","POST"})
      */
 
-    public function byId(Post $post, Request $request, FlashyNotifier $flashy,
+    public function byId(Post $post, Request $request,
                          EntityManagerInterface $entityManager): Response
     {
         $comment = new Comments();
@@ -108,9 +113,8 @@ class BlogPostsController extends AbstractController
             $comment->setCreatedAt(new \DateTime());
             $entityManager->persist($comment);
             $entityManager->flush();
-            $flashy->success('comment created!');
 
-            return $this->redirectToRoute("blog_by_id",[
+            return $this->redirectToRoute("post_by_id",[
                 'id' => $post->getId()
             ]);
         }

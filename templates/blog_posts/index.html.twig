@@ -27,11 +27,11 @@
     }
 </style>
 {% for post in posts %}
-    <div class="content mt-5">
+    <section class="content mt-5">
         <article class="mb-5">
             <h2>{{ post.Title }}</h2>
             <div class="metadata">
-                created on {{ post.created_at | date('d-m-Y') }} at {{ post.created_at | date('H:i') }}
+                created on {{ post.CreatedAt | date('d-m-Y') }} at {{ post.CreatedAt | date('H:i') }}
                 {% if post.User %}
                 By
                 <span class="badge bg-success">
@@ -40,15 +40,15 @@
                 {% endif %}
             </div>
             <div class="posts">
-                <img src = "{{ post.imageUrl}}" alt="Post Image">
+                <img src = "{{ post.ImageUrl}}" alt="Post Image">
                 <p>{{ post.Content }}</p>
-                <a class="btn btn-info" href="{{ path('post_show',{'id' : post.id }) }}"> read more</a>
+                <a class="btn btn-info" href="{{ path('post_by_id',{'id' : post.id }) }}"> read more</a>
             </div>
         </article>
 
-    </div>
-   {% endfor %}
+    </section>
+{% endfor %}
     <div class="navigation mt-5">
-{#        {{ knp_pagination_render(posts) }}#}
+        {{ knp_pagination_render(posts) }}
     </div>
 {% endblock %}
