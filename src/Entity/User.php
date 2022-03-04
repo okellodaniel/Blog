@@ -223,9 +223,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      */
 
-    public static function createByAdmin():UserRepository{
-        $user = new Self;
-        $user->roles = [Roles::ROLE_USER, Roles::ROLE_CONTRIBUTOR];
-        return $user;
-    }
+//    public static function createByAdmin():UserRepository{
+//        $user = new Self;
+//        $user->roles = [Roles::ROLE_USER, Roles::ROLE_CONTRIBUTOR];
+//        return $user;
+//    }
 }

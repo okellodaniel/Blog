@@ -27,12 +27,6 @@ class Comments
     private $Content;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     */
-    private $Author;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;

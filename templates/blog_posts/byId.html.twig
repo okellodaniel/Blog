@@ -51,7 +51,7 @@
         <div class="comment mt-2">
             <div class="row">
                 <div class="md-col-3" style="color:#47029f; font-family: Roboto,serif; font-style: italic" >
-                    By {{ comment.author }} at <small>({{ comment.CreatedAt | date('d-m-Y')}}  {{ comment.CreatedAt  | date('H:i')}} )</small>
+                    By {{ app.User.Names }} at <small>({{ comment.CreatedAt | date('d-m-Y')}}  {{ comment.CreatedAt  | date('H:i')}} )</small>
                 </div>
                 <p>{{ comment.Content }}</p>
             </div>
